@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    {% include 'includes/form_errors.html' %}
+        <form action="" method='post'>
+            {{ form.csrf_token }}
+            {{ form.username.label }} {{ form.username }}
+            {{ form.email.label }} {{ form.email }}
+            {{ form.age.label }} {{ form.age }}
+            {{ form.password.label }} {{ form.password }}
+            {{ form.confirm_pass.label }} {{ form.confirm_pass }}
+            <input type="submit" value="Register" />
+        </form>
+{% endblock %}
