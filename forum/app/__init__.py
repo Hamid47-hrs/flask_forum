@@ -32,5 +32,7 @@ register_error_handlers(app)
 # ! Use app_context() to create the application before initializing the database.
 app.app_context().push()
 
+# ! Import *UserModel* here to avoid "circular_imports".
+from app.users.models import UserModel
 
 db.create_all()
