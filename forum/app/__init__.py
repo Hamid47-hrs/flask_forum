@@ -1,15 +1,9 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 
 from app.users.routes import blueprint as users_blueprint
 from app.posts.routes import blueprint as posts_blueprint
+from app.extensions import db, migrate
 import app.exceptions as error_exception
-
-
-app = Flask(__name__)
-
-# ** For Development insert 'config.DevelopmentConfig' and for Production insert 'config.ProductionConfig'.
-app.config.from_object("config.DevelopmentConfig")
 
 
 def register_blueprints(app):
@@ -24,10 +18,15 @@ def register_error_handlers(app):
     app.register_error_handler(500, error_exception.server_error)
 
 
-db = SQLAlchemy(app)
+app = Flask(__name__)
+
 register_blueprints(app)
 register_error_handlers(app)
 
+# ** For Development insert 'config.DevelopmentConfig' and for Production insert 'config.ProductionConfig'.
+app.config.from_object("config.DevelopmentConfig")
+
+db.init_app(app)
 
 # ! Use app_context() to create the application before initializing the database.
 app.app_context().push()
@@ -35,4 +34,4 @@ app.app_context().push()
 # ! Import *UserModel* here to avoid "circular_imports".
 from app.users.models import UserModel
 
-db.create_all()
+migrate.init_app(app, db)
