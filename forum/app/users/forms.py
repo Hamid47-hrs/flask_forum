@@ -55,8 +55,19 @@ class UserRegistrationForm(FlaskForm):
             )
 
     def validate_confirm_pass(self, confirm_pass):
-        print(confirm_pass.data)
-        print(self.password.data)
         if self.password.data != confirm_pass.data:
-            print('err')
             raise ValidationError("Password should match its confirmation.")
+
+
+class UserLoginForm(FlaskForm):
+    username = StringField("Username : ")
+    password = StringField("Password : ")
+
+    def validate_username(self, username):
+        user = UserModel.query.filter_by(username=username.data).first()
+
+        if user:
+            if user.password != self.password.data:
+                raise ValidationError("The password in not correct.")
+        else:
+            raise ValidationError("There is no user with this username.")

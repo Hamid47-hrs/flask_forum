@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    {% include 'includes/form_errors.html' %}
+    <form action="" method="post">
+        {{ form.csrf_token }}
+        {{ form.username.label }} {{ form.username }}
+
+        {{ form.password.label }} {{ form.password }}
+        <input type="submit" value="Log In" />
+    </form>
+{% endblock %}

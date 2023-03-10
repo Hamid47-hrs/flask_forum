@@ -2,7 +2,7 @@ from flask import Flask
 
 from app.users.routes import blueprint as users_blueprint
 from app.posts.routes import blueprint as posts_blueprint
-from app.extensions import db, migrate
+from app.extensions import db, migrate, login_manager
 import app.exceptions as error_exception
 
 
@@ -35,3 +35,4 @@ app.app_context().push()
 from app.users.models import UserModel
 
 migrate.init_app(app, db)
+login_manager.init_app(app)
