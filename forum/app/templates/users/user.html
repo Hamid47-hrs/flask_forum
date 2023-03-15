@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    <div>
+        <p>User name : {{ user.username }}</p>
+        <p>User E-mail : {{ user.email }}</p>
+
+        <div>
+            {% if current_user.is_authenticated and not current_user.id == user.id %}
+
+                {% if current_user.is_authenticated and following %}
+                    <form action="">
+                        {{ form.csrf_token }}
+                        {{ form.submit(value='unfollow') }}
+                    </form>
+
+                {% elif current_user.is_authenticated and not following %}
+                    <form action="">
+                        {{ form.csrf_token }}
+                        {{ form.submit(value='follow') }}
+                    </form>
+                {% endif %}
+            {% endif %}
+            
+        </div>
+    </div>
+
+{% endblock %}

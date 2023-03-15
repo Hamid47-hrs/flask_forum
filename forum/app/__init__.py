@@ -3,7 +3,7 @@ from flask import Flask
 from app.users.routes import blueprint as users_blueprint
 from app.posts.routes import blueprint as posts_blueprint
 from app.extensions import db, migrate, login_manager
-from app.users.models import UserModel
+from app.users.models import UserModel, UserFollow
 import app.exceptions as error_exception
 
 
@@ -21,7 +21,7 @@ def register_error_handlers(app):
 
 def register_shell_context(app):
     def shell_context():
-        return {"db": db, "UserModel": UserModel}
+        return {"db": db, "UserModel": UserModel, "UserFollow": UserFollow}
 
     app.shell_context_processor(shell_context)
 

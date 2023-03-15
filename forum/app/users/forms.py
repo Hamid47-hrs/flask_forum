@@ -1,6 +1,6 @@
 from re import search
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField
+from wtforms import StringField, IntegerField, SubmitField
 from wtforms.validators import ValidationError
 from app.users.models import UserModel
 
@@ -71,3 +71,6 @@ class UserLoginForm(FlaskForm):
                 raise ValidationError("The password in not correct.")
         else:
             raise ValidationError("There is no user with this username.")
+
+class EmptyForm(FlaskForm):
+    submit = SubmitField('submit')

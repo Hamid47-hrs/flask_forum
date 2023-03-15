@@ -17,3 +17,9 @@ class UserModel(BaseModel, UserMixin):
 
     def __repr__(self):
         return f"{self.__class__.__name__} - {self.id} : {self.username}"
+
+
+class UserFollow(BaseModel, UserMixin):
+    follower_id = db.Column(db.Integer)
+    followed_id = db.Column(db.Integer)
+    followed_at = db.Column(db.DateTime, default=db.func.current_timestamp())
